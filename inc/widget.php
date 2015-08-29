@@ -55,8 +55,34 @@ class Fusion_Tables_Search_Wiget extends WP_Widget {
         extract( $args );
         echo $before_widget;
         echo $before_title . $instance['title'] . $after_title;
-        //print_r($args);
-        print_r($instance);
+
+        $api_key = get_option( 'mt_google_api_key' );
+        $table = $instance['fusion_table'];
+        $column = $instance['column'];
+
+        $search_string = "table=".$table."&column=".$column."&api_key=".$api_key;
+
+        ?>
+        <input type="text" placeholder="Start typing..." class="search" id="searchInput_<?php echo $instance['fusion_table'];?>" />
+        <link rel="stylesheet" type="text/css" href="<?php echo plugin_dir_url( __FILE__ ); ?>../assets/jquery.autocomplete.css">
+        <script type="text/javascript" src="<?php echo plugin_dir_url( __FILE__ ); ?>../assets/jquery.js"></script>
+        <script type='text/javascript' src="<?php echo plugin_dir_url( __FILE__ ); ?>../assets/jquery.autocomplete.js"></script>
+
+        <script type="text/javascript">
+            $().ready(function() {
+                $("#searchInput_<?php echo $instance['fusion_table'];?>").autocomplete("<?php echo plugin_dir_url( __FILE__ ); ?>get_table.php?<?php echo $search_string;?>", {
+                    width: 260,
+                    matchContains: true,
+                    //mustMatch: true,
+                    //minChars: 0,
+                    //multiple: true,
+                    //highlight: false,
+                    //multipleSeparator: ",",
+                    selectFirst: false
+                });
+            });
+        </script>
+        <?php
     }
 
 }
