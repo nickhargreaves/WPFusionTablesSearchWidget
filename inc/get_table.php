@@ -13,7 +13,7 @@
 
     $url = "https://www.googleapis.com/fusiontables/v1/query?";
 
-    $sql = "SELECT * FROM ".$table." WHERE ".$column." LIKE IGNORING CASE '%".$search."%'";
+    $sql = "SELECT * FROM ".$table." WHERE ".$column." LIKE '%".$search."%'";
 
     $options = array("sql"=>$sql, "key"=>$api_key, "sensor"=>"false");
 
@@ -24,10 +24,14 @@
     $data = json_decode($page, TRUE);
 
     if(array_key_exists(('rows'), $data)){
+        $columns = $data['columns'];
+        $column_id = array_search($column, $columns);
+
         $rows = $data['rows'];
 
         foreach($rows as $row){
-            $result = $row['1']."\r\n";
+
+            $result = $row[$column_id]."\r\n";
 
         }
 

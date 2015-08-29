@@ -58,7 +58,7 @@ class Fusion_Tables_Search_Wiget extends WP_Widget {
 
         $api_key = get_option( 'mt_google_api_key' );
         $table = $instance['fusion_table'];
-        $column = $instance['column'];
+        $column = $instance['search_column'];
 
         $search_string = "table=".$table."&column=".$column."&api_key=".$api_key;
 
