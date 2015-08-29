@@ -25,6 +25,7 @@ class Fusion_Tables_Search_Wiget extends WP_Widget {
         $title = $instance[ 'title' ];
         $fusion_table = $instance[ 'fusion_table' ];
         $search_column = $instance[ 'search_column' ];
+        $display_columns = $instance[ 'display_columns' ];
 
         ?>
         <p>
@@ -40,6 +41,11 @@ class Fusion_Tables_Search_Wiget extends WP_Widget {
             <input class="widefat" type="text" id="<?php echo $this->get_field_id( 'search_column' ); ?>" name="<?php echo $this->get_field_name( 'search_column' ); ?>" value="<?php echo esc_attr( $search_column ); ?>">
         </p>
 
+        <p>
+            <label for="<?php echo $this->get_field_id( 'display_columns' ); ?>">Columns to display</label>
+            <input class="widefat" type="text" id="<?php echo $this->get_field_id( 'display_columns' ); ?>" name="<?php echo $this->get_field_name( 'display_columns' ); ?>" value="<?php echo esc_attr( $display_columns ); ?>" placeholder="Comma separated e.g Name, Address, DateAdded">
+        </p>
+
         <?php
     }
 
@@ -48,6 +54,7 @@ class Fusion_Tables_Search_Wiget extends WP_Widget {
         $instance[ 'title' ] = strip_tags( $new_instance[ 'title' ] );
         $instance[ 'fusion_table' ] = strip_tags( $new_instance[ 'fusion_table' ] );
         $instance[ 'search_column' ] = strip_tags( $new_instance[ 'search_column' ] );
+        $instance[ 'display_columns' ] = strip_tags( $new_instance[ 'display_columns' ] );
         return $instance;
     }
 
@@ -59,8 +66,9 @@ class Fusion_Tables_Search_Wiget extends WP_Widget {
         $api_key = get_option( 'mt_google_api_key' );
         $table = $instance['fusion_table'];
         $column = $instance['search_column'];
+        $display_columns = $instance['display_columns'];
 
-        $search_string = "table=".$table."&column=".$column."&api_key=".$api_key;
+        $search_string = "table=".$table."&column=".$column."&api_key=".$api_key."&display_columns=".$display_columns;
 
         ?>
         <div id="input-div">
@@ -93,7 +101,7 @@ class Fusion_Tables_Search_Wiget extends WP_Widget {
                 $("#searchButton_<?php echo $instance['fusion_table'];?>").click(function(){
                     var name = $("#searchInput_<?php echo $instance['fusion_table'];?>").val();
 
-                    $("#resultTitle_<?php echo $instance['fusion_table'];?>").html("Results for: " + name);
+                    $("#resultTitle_<?php echo $instance['fusion_table'];?>").html("Results");
 
                     $("#result_<?php echo $instance['fusion_table'];?>").html("");
 
