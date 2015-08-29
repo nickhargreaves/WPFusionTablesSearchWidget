@@ -1,6 +1,6 @@
 .ac_results {
 	padding: 0px;
-	border: 1px solid black;
+	border: 1px solid #b9b9b9;
 	background-color: white;
 	overflow: hidden;
 	z-index: 99999;
@@ -16,16 +16,15 @@
 
 .ac_results li {
 	margin: 0px;
-	padding: 2px 5px;
+	padding: 10px;
 	cursor: default;
 	display: block;
 	/* 
 	if width will be 100% horizontal scrollbar will apear 
 	when scroll mode will be used
 	*/
-	/*width: 100%;*/
+	width: 100%;
 	font: menu;
-	font-size: 12px;
 	/* 
 	it is very important, if line-height not setted or setted 
 	in relative units scroll will be broken in firefox
@@ -36,6 +35,7 @@
 
 .ac_loading {
 	background: white url('indicator.gif') right center no-repeat;
+	right: -25px;
 }
 
 .ac_odd {
@@ -45,4 +45,20 @@
 .ac_over {
 	background-color: #0A246A;
 	color: white;
+}
+#input-div {
+	height:30px;
+	width:300px;
+	position:relative;
+}
+
+#input-div img {
+	height:100%;
+	position:absolute;
+	right:0;
+	top:5px;
+}
+#input-div input{
+	padding-right: 25px;
+
 }

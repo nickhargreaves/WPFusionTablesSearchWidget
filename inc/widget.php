@@ -63,10 +63,9 @@ class Fusion_Tables_Search_Wiget extends WP_Widget {
         $search_string = "table=".$table."&column=".$column."&api_key=".$api_key;
 
         ?>
-        <div style="text-align: center">
-            <input type="text" placeholder="Start typing..." class="search" id="searchInput_<?php echo $instance['fusion_table'];?>" />
-
-            <button style="margin:5px;" class="primary" id="searchSingle_<?php echo $instance['fusion_table'];?>">Submit</button>
+        <div id="input-div">
+            <img src="<?php echo plugin_dir_url( __FILE__ ); ?>../assets/search.png" alt="">
+            <input type="text" placeholder="Start typing..." class="search" id="searchInput_<?php echo $instance['fusion_table'];?>"/>
         </div>
 
         <div id="result_<?php echo $instance['fusion_table'];?>">
@@ -79,7 +78,7 @@ class Fusion_Tables_Search_Wiget extends WP_Widget {
         <script type="text/javascript">
             $().ready(function() {
                 $("#searchInput_<?php echo $instance['fusion_table'];?>").autocomplete("<?php echo plugin_dir_url( __FILE__ ); ?>get_rows.php?<?php echo $search_string;?>", {
-                    width: 260,
+                    width: 300,
                     matchContains: true,
                     //mustMatch: true,
                     //minChars: 0,
