@@ -23,6 +23,14 @@
 
     $data = json_decode($page, TRUE);
 
+    //if displaying single mode, get displayable columns as array
+
+    if(isset($_GET['mode'])){
+        $display_columns = $_GET['display_columns'];
+        $display_columns = explode(",", $display_columns);
+    }
+
+
     if(array_key_exists(('rows'), $data)){
         $columns = $data['columns'];
         $column_id = array_search($column, $columns);
@@ -31,8 +39,21 @@
 
         foreach($rows as $row){
 
-            $result = $row[$column_id]."\r\n";
+            if(isset($_GET['mode'])){
+                $result = "<p>";
+                //use requested display columns
+                foreach($display_columns as $dc){
+                    //get column index from name
+                    $dc = trim($dc);
+                    $dc_id = array_search($dc, $columns);
+                    //add to row
+                    $result .= "<strong>".$dc."</strong>: ".$row[$dc_id]."<br />";
+                }
+                $result .= "</p>";
 
+            }else{
+                $result = $row[$column_id]."\r\n";
+            }
         }
 
         if(count($rows)<1){
