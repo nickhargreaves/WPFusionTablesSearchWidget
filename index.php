@@ -10,4 +10,5 @@
  */
 
 
+require_once('inc/add_menu.php');
 ?>
