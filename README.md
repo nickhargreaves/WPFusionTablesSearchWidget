@@ -2,8 +2,7 @@
 
 This WordPress plugin allows you to create a widget for your site visitors to easily to search a Fusion Tables database.
 
-# How to use it;
-
+# How to use it
 1. Upload the plugin folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. On your dashboard menu go to Settings>Fusion Tables Search
