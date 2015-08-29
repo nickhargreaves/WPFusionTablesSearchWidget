@@ -64,9 +64,12 @@ class Fusion_Tables_Search_Wiget extends WP_Widget {
 
         ?>
         <div id="input-div">
-            <input type="text" placeholder="Start typing..." class="search searchInput" id="searchInput_<?php echo $instance['fusion_table'];?>"/><img src="<?php echo plugin_dir_url( __FILE__ ); ?>../assets/search.png" alt="" id="searchButton">
+            <input type="text" placeholder="Start typing..." class="search searchInput" id="searchInput_<?php echo $instance['fusion_table'];?>"/><img src="<?php echo plugin_dir_url( __FILE__ ); ?>../assets/search.png" alt="" id="searchButton_<?php echo $instance['fusion_table'];?>">
         </div>
-
+        <h3 id="resultTitle_<?php echo $instance['fusion_table'];?>"></h3>
+        <div id="loading_<?php echo $instance['fusion_table'];?>" style="text-align:center">
+            <img src="<?php echo plugin_dir_url( __FILE__ ); ?>../assets/indicator.gif">
+        </div>
         <div id="result_<?php echo $instance['fusion_table'];?>">
         </div>
 
@@ -76,6 +79,7 @@ class Fusion_Tables_Search_Wiget extends WP_Widget {
 
         <script type="text/javascript">
             $().ready(function() {
+                $("#loading_<?php echo $instance['fusion_table'];?>").hide();
                 $("#searchInput_<?php echo $instance['fusion_table'];?>").autocomplete("<?php echo plugin_dir_url( __FILE__ ); ?>get_rows.php?<?php echo $search_string;?>", {
                     matchContains: true,
                     //mustMatch: true,
@@ -84,6 +88,24 @@ class Fusion_Tables_Search_Wiget extends WP_Widget {
                     //highlight: false,
                     //multipleSeparator: ",",
                     selectFirst: false
+                });
+
+                $("#searchButton_<?php echo $instance['fusion_table'];?>").click(function(){
+                    var name = $("#searchInput_<?php echo $instance['fusion_table'];?>").val();
+
+                    $("#resultTitle_<?php echo $instance['fusion_table'];?>").html("Results for: " + name);
+
+                    $("#result_<?php echo $instance['fusion_table'];?>").html("");
+
+                    $("#loading_<?php echo $instance['fusion_table'];?>").show();
+
+                    $.ajax({url:"<?php echo plugin_dir_url( __FILE__ ); ?>get_rows.php?mode=single&q=" + name + "& <?php echo $search_string;?>",success:function(result){
+                        $("#searchInput_<?php echo $instance['fusion_table'];?>").val("");
+
+                        $("#result_<?php echo $instance['fusion_table'];?>").html(result);
+
+                        $("#loading_<?php echo $instance['fusion_table'];?>").hide();
+                    }});
                 });
             });
         </script>
