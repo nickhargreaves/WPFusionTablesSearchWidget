@@ -63,14 +63,22 @@ class Fusion_Tables_Search_Wiget extends WP_Widget {
         $search_string = "table=".$table."&column=".$column."&api_key=".$api_key;
 
         ?>
-        <input type="text" placeholder="Start typing..." class="search" id="searchInput_<?php echo $instance['fusion_table'];?>" />
+        <div style="text-align: center">
+            <input type="text" placeholder="Start typing..." class="search" id="searchInput_<?php echo $instance['fusion_table'];?>" />
+
+            <button style="margin:5px;" class="primary" id="searchSingle_<?php echo $instance['fusion_table'];?>">Submit</button>
+        </div>
+
+        <div id="result_<?php echo $instance['fusion_table'];?>">
+        </div>
+
         <link rel="stylesheet" type="text/css" href="<?php echo plugin_dir_url( __FILE__ ); ?>../assets/jquery.autocomplete.css">
         <script type="text/javascript" src="<?php echo plugin_dir_url( __FILE__ ); ?>../assets/jquery.js"></script>
         <script type='text/javascript' src="<?php echo plugin_dir_url( __FILE__ ); ?>../assets/jquery.autocomplete.js"></script>
 
         <script type="text/javascript">
             $().ready(function() {
-                $("#searchInput_<?php echo $instance['fusion_table'];?>").autocomplete("<?php echo plugin_dir_url( __FILE__ ); ?>get_table.php?<?php echo $search_string;?>", {
+                $("#searchInput_<?php echo $instance['fusion_table'];?>").autocomplete("<?php echo plugin_dir_url( __FILE__ ); ?>get_rows.php?<?php echo $search_string;?>", {
                     width: 260,
                     matchContains: true,
                     //mustMatch: true,
